@@ -1,0 +1,12 @@
+/Users/frutosmarquezpelaez/Desarrollo/Java/connect-library/src/main/java/eu/sgax/Main.java
+/Users/frutosmarquezpelaez/Desarrollo/Java/connect-library/src/main/java/eu/sgax/connect/ftp/FTPConnect.java
+/Users/frutosmarquezpelaez/Desarrollo/Java/connect-library/src/main/java/eu/sgax/connect/ftp/FTPDownloader.java
+/Users/frutosmarquezpelaez/Desarrollo/Java/connect-library/src/main/java/eu/sgax/connect/ftp/FTPUploader.java
+/Users/frutosmarquezpelaez/Desarrollo/Java/connect-library/src/main/java/eu/sgax/connect/mail/ReadMail.java
+/Users/frutosmarquezpelaez/Desarrollo/Java/connect-library/src/main/java/eu/sgax/connect/mail/SendMail.java
+/Users/frutosmarquezpelaez/Desarrollo/Java/connect-library/src/main/java/eu/sgax/connect/s3/S3Connect.java
+/Users/frutosmarquezpelaez/Desarrollo/Java/connect-library/src/main/java/eu/sgax/connect/s3/S3Downloader.java
+/Users/frutosmarquezpelaez/Desarrollo/Java/connect-library/src/main/java/eu/sgax/connect/s3/S3Uploader.java
+/Users/frutosmarquezpelaez/Desarrollo/Java/connect-library/src/main/java/eu/sgax/connect/sftp/SFTPConnect.java
+/Users/frutosmarquezpelaez/Desarrollo/Java/connect-library/src/main/java/eu/sgax/connect/sftp/SFTPDownloader.java
+/Users/frutosmarquezpelaez/Desarrollo/Java/connect-library/src/main/java/eu/sgax/connect/sftp/SFTPUploader.java
