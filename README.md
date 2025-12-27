@@ -44,21 +44,7 @@ To use this library in your Maven project, add the following to your `pom.xml`:
     <artifactId>connect-library</artifactId>
     <version>1.01</version>
 </dependency>
-```
 
-3. **Configure authentication** in `~/.m2/settings.xml`:
-
-```xml
-<settings>
-    <servers>
-        <server>
-            <id>github</id>
-            <username>YOUR_GITHUB_USERNAME</username>
-            <password>YOUR_GITHUB_TOKEN</password>
-        </server>
-    </servers>
-</settings>
-```
 
 ## Usage
 
