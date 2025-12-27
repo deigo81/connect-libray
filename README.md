@@ -1,25 +1,15 @@
 # Connect Library
 
-Una biblioteca Java versátil que proporciona conectores para múltiples protocolos y servicios de transferencia de archivos y comunicación.
-
+Libreria de java que permite conectarse a multiples protocolos.
 ## Descripción
 
-Connect Library es una librería diseñada para facilitar la integración con diversos sistemas de almacenamiento y transferencia de datos. Incluye implementaciones para:
+Connect Library libreria para facilitar la  conexion de multiples protocolos. Incluye implementaciones para:
 
-- **FTP**: Transferencia de archivos mediante File Transfer Protocol
-- **SFTP**: Transferencia segura de archivos mediante SSH File Transfer Protocol
-- **S3**: Integración con Amazon S3 y servicios compatibles
-- **Mail**: Lectura y envío de correos electrónicos
+- **FTP**: 
+- **SFTP**: 
+- **S3**: 
+- **Mail**:
 
-Cada módulo proporciona funcionalidades de conexión, descarga y carga de archivos.
-
-## Características
-
-- Soporte para múltiples protocolos de transferencia
-- API unificada para operaciones comunes
-- Manejo de autenticación y conexiones seguras
-- Monitoreo de progreso en transferencias
-- Manejo robusto de errores
 
 ## Módulos
 
