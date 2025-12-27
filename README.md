@@ -18,29 +18,6 @@ Connect Library libreria para facilitar la  conexion de multiples protocolos. In
 - `eu.sgax.connect.s3` - Integración con Amazon S3
 - `eu.sgax.connect.mail` - Operaciones de correo electrónico
 
-## Licencia
-
-Este proyecto está licenciado bajo la **Apache License, Version 2.0**. Consulta el archivo `LICENSE` para más detalles.
-
-```
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-```
-
-## Requisitos
-
-- Java 21 o superior
-- Maven 3.6 o superior
-
 ## Instalación
 
 ### Agregar como dependencia Maven
@@ -159,6 +136,29 @@ sendMail.send(email);
 // Leer correos
 ReadMail readMail = new ReadMail("imap.gmail.com", 993, "tu@email.com", "password");
 List<ReadMail.EmailMessage> mensajes = readMail.readEmails("INBOX", 10);
+```
+
+## Requisitos
+
+- Java 21 o superior
+- Maven 3.6 o superior
+
+## Licencia
+
+Este proyecto está licenciado bajo la **Apache License, Version 2.0**. Consulta el archivo `LICENSE` para más detalles.
+
+```
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
 ```
 
 ## Construcción
