@@ -166,24 +166,29 @@ limitations under the License.
 Esta librería utiliza las siguientes dependencias de terceros:
 
 - **AWS SDK for Java 2.x** (v2.40.15) - Para integración con Amazon S3
-  - GroupId: `software.amazon.awssdk`
-  - ArtifactId: `s3`
+  - **Autor**: Amazon Web Services
+  - **Proyecto**: https://github.com/aws/aws-sdk-java-v2
+  - **Uso**: Proporciona acceso a servicios de AWS, especialmente para trabajar con Amazon S3
 
 - **Apache Commons Net** (v3.11.1) - Para conexiones FTP
-  - GroupId: `commons-net`
-  - ArtifactId: `commons-net`
+  - **Autor**: Apache Software Foundation
+  - **Proyecto**: https://commons.apache.org/proper/commons-net/
+  - **Uso**: Implementa protocolos de red como FTP, NNTP, SMTP, POP3 e IMAP
 
-- **JSch (mwiede fork)** (v0.2.20) - Para conexiones SFTP
-  - GroupId: `com.github.mwiede`
-  - ArtifactId: `jsch`
+- **JSch** (v0.2.20) - Para conexiones SFTP
+  - **Autor**: JCraft, Inc. (mantenido por mwiede)
+  - **Proyecto**: https://github.com/mwiede/jsch
+  - **Uso**: Proporciona cliente SSH2 para ejecutar comandos remotos y transferencia segura de archivos (SFTP)
 
 - **Jakarta Mail** (v2.0.1) - Para operaciones de correo electrónico
-  - GroupId: `com.sun.mail`
-  - ArtifactId: `jakarta.mail`
+  - **Autor**: Eclipse Foundation
+  - **Proyecto**: https://github.com/eclipse-ee4j/mail
+  - **Uso**: Implementa especificaciones SMTP, IMAP y POP3 para envío y lectura de correos electrónicos
 
 - **SLF4J Simple** (v2.0.13) - Para logging
-  - GroupId: `org.slf4j`
-  - ArtifactId: `slf4j-simple`
+  - **Autor**: QOS.ch
+  - **Proyecto**: https://www.slf4j.org/
+  - **Uso**: Proporciona una capa de abstracción para sistemas de logging en Java
 
 ## Propietarios
 
