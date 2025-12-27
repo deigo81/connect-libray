@@ -6,7 +6,12 @@
 
     <groupId>eu.sgax</groupId>
     <artifactId>connect-library</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
+    <packaging>jar</packaging>
+
+    <name>Connect Library</name>
+    <description>A versatile Java library providing connectors for multiple protocols including FTP, SFTP, S3, and Mail</description>
+    <url>https://github.com/deigo81/connect-libray</url>
 
     <licenses>
         <license>
@@ -17,8 +22,9 @@
     </licenses>
 
     <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <dependencies>
