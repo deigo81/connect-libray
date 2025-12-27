@@ -1,53 +1,89 @@
 package eu.sgax.sample;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.List;
+
 import eu.sgax.connect.ftp.FTPConnect;
-import eu.sgax.connect.ftp.FTPDownloader;
 import eu.sgax.connect.ftp.FTPUploader;
 
 /**
  * FTP connection example
- * This class demonstrates how to use the FTP connector to upload and download files
+ * This class demonstrates how to use the FTP connector to upload, list, rename and delete files
  */
 public class FTPSample {
 
     public static void main(String[] args) {
-        // FTP server configuration
-        String host = "ftp.example.com";
-        int port = 21;
-        String username = "your-username";
-        String password = "your-password";
-
+        FTPConnect ftp = null;
         try {
+            // FTP server configuration (using environment variables or defaults)
+            String host = System.getenv().getOrDefault("FTP_HOST", "localhost");
+            int port = Integer.parseInt(System.getenv().getOrDefault("FTP_PORT", "21"));
+            String username = System.getenv().getOrDefault("FTP_USER", "minioadmin");
+            String password = System.getenv().getOrDefault("FTP_PASS", "minioadmin");
+
+            System.out.println("\n=== Starting FTP test ===");
+            
             // Connect to FTP server
-            System.out.println("Connecting to FTP server...");
-            FTPConnect ftpConnect = new FTPConnect(host, port, username, password);
-            System.out.println("Successfully connected to FTP server");
+            ftp = new FTPConnect(host, port, username, password);
+            ftp.connect();
+            System.out.println("FTP connection OK at " + host + ":" + port);
 
-            // Example 1: Upload a file
-            System.out.println("\n--- Upload Example ---");
-            FTPUploader uploader = new FTPUploader(ftpConnect);
-            String localFilePath = "/path/to/local/file.txt";
-            String remoteFilePath = "/remote/path/file.txt";
-            
-            System.out.println("Uploading file: " + localFilePath);
-            uploader.upload(localFilePath, remoteFilePath);
-            System.out.println("File uploaded successfully to: " + remoteFilePath);
+            // Upload file
+            Path src = Path.of("testfile", "text.txt");
+            if (!Files.exists(src)) {
+                System.err.println("Test file does not exist at: " + src.toString());
+                return;
+            }
+            FTPUploader uploader = new FTPUploader(ftp);
+            uploader.uploadFile(src, "text.txt");
+            System.out.println("Upload OK: text.txt");
 
-            // Example 2: Download a file
-            System.out.println("\n--- Download Example ---");
-            FTPDownloader downloader = new FTPDownloader(ftpConnect);
-            String remoteDownloadPath = "/remote/path/download.txt";
-            String localDownloadPath = "/path/to/local/download.txt";
-            
-            System.out.println("Downloading file from: " + remoteDownloadPath);
-            downloader.download(remoteDownloadPath, localDownloadPath);
-            System.out.println("File downloaded successfully to: " + localDownloadPath);
+            // List files (first time)
+            List<String> files = ftp.listFiles();
+            System.out.println("Listing 1 - Files found: " + files.size());
+            if (files.contains("text.txt")) {
+                System.out.println("  ✓ text.txt is on the server");
+            }
 
-            System.out.println("\nFTP operations completed successfully!");
+            // Rename file
+            ftp.rename("text.txt", "textr.txt");
+            System.out.println("Renamed OK: text.txt -> textr.txt");
 
+            // List files (second time)
+            files = ftp.listFiles();
+            System.out.println("Listing 2 - Files found: " + files.size());
+            if (files.contains("textr.txt")) {
+                System.out.println("  ✓ textr.txt is on the server");
+            }
+            if (!files.contains("text.txt")) {
+                System.out.println("  ✓ text.txt no longer exists (renamed correctly)");
+            }
+
+            // Delete file
+            ftp.deleteFile("textr.txt");
+            System.out.println("Deleted OK: textr.txt");
+
+            // Verify deletion
+            files = ftp.listFiles();
+            if (!files.contains("textr.txt")) {
+                System.out.println("  ✓ textr.txt deleted correctly");
+            }
+
+            System.out.println("=== FTP test completed successfully ===\n");
         } catch (Exception e) {
-            System.err.println("Error during FTP operations: " + e.getMessage());
+            System.err.println("Failure in FTP test: " + e.getMessage());
+            System.err.println("Verify that the FTP server is active, endpoint and credentials.");
             e.printStackTrace();
+        } finally {
+            // Ensure disconnection
+            if (ftp != null) {
+                try {
+                    ftp.disconnect();
+                } catch (Exception e) {
+                    // Ignore disconnection errors
+                }
+            }
         }
     }
 }

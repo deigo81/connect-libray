@@ -1,53 +1,81 @@
 package eu.sgax.sample;
 
+import java.net.URI;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.List;
+
 import eu.sgax.connect.s3.S3Connect;
-import eu.sgax.connect.s3.S3Downloader;
-import eu.sgax.connect.s3.S3Uploader;
+import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
+import software.amazon.awssdk.auth.credentials.AwsCredentialsProvider;
+import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
+import software.amazon.awssdk.core.sync.RequestBody;
+import software.amazon.awssdk.regions.Region;
+import software.amazon.awssdk.services.s3.model.CreateBucketRequest;
+import software.amazon.awssdk.services.s3.model.GetObjectRequest;
+import software.amazon.awssdk.services.s3.model.HeadBucketRequest;
+import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
 /**
- * Amazon S3 connection example
- * This class demonstrates how to use the S3 connector to upload and download files to Amazon S3
+ * Amazon S3 / MinIO connection example
+ * This class demonstrates how to use the S3 connector to upload, list and download files to S3 or MinIO
  */
 public class S3Sample {
 
     public static void main(String[] args) {
-        // AWS S3 configuration
-        String region = "us-east-1";
-        String accessKey = "your-access-key";
-        String secretKey = "your-secret-key";
-        String bucketName = "your-bucket-name";
-
         try {
-            // Connect to S3
-            System.out.println("Connecting to Amazon S3...");
-            S3Connect s3Connect = new S3Connect(region, accessKey, secretKey);
-            System.out.println("Successfully connected to S3");
+            // S3/MinIO configuration (using environment variables or defaults)
+            String endpoint = System.getenv().getOrDefault("MINIO_ENDPOINT", "http://localhost:9000");
+            String accessKey = System.getenv().getOrDefault("MINIO_ACCESS_KEY", "minioadmin");
+            String secretKey = System.getenv().getOrDefault("MINIO_SECRET_KEY", "minioadmin");
+            String bucket = "test";
+            String key = "text.txt";
 
-            // Example 1: Upload a file
-            System.out.println("\n--- Upload Example ---");
-            S3Uploader uploader = new S3Uploader(s3Connect);
-            String localFilePath = "/path/to/local/file.txt";
-            String s3Key = "uploads/file.txt";
-            
-            System.out.println("Uploading file to S3 bucket: " + bucketName);
-            uploader.upload(bucketName, localFilePath, s3Key);
-            System.out.println("File uploaded successfully with key: " + s3Key);
+            AwsCredentialsProvider provider = StaticCredentialsProvider.create(
+                    AwsBasicCredentials.create(accessKey, secretKey));
+            S3Connect s3 = new S3Connect(Region.US_EAST_1, provider, URI.create(endpoint));
 
-            // Example 2: Download a file
-            System.out.println("\n--- Download Example ---");
-            S3Downloader downloader = new S3Downloader(s3Connect);
-            String downloadKey = "downloads/remote-file.txt";
-            String localDownloadPath = "/path/to/local/download.txt";
-            
-            System.out.println("Downloading file from S3 bucket: " + bucketName);
-            downloader.download(bucketName, downloadKey, localDownloadPath);
-            System.out.println("File downloaded successfully to: " + localDownloadPath);
+            // Ensure bucket exists
+            try {
+                s3.getClient().headBucket(HeadBucketRequest.builder().bucket(bucket).build());
+            } catch (Exception hb) {
+                s3.getClient().createBucket(CreateBucketRequest.builder().bucket(bucket).build());
+                System.out.println("Bucket '" + bucket + "' created.");
+            }
 
-            System.out.println("\nS3 operations completed successfully!");
+            // Upload test file
+            Path src = Path.of("testfile", "text.txt");
+            if (!Files.exists(src)) {
+                System.err.println("Test file does not exist at: " + src.toString());
+                return;
+            }
+            PutObjectRequest putReq = PutObjectRequest.builder()
+                    .bucket(bucket)
+                    .key(key)
+                    .contentType("text/plain")
+                    .build();
+            s3.getClient().putObject(putReq, RequestBody.fromFile(src));
+            System.out.println("Upload OK: " + key);
 
+            // List to verify
+            List<String> keys = s3.listObjects(bucket);
+            System.out.println("Listing OK. Objects in '" + bucket + "': " + keys.size());
+            if (!keys.isEmpty()) {
+                System.out.println("Examples: " + keys.stream().limit(5).toList());
+            }
+
+            // Download to validate
+            Path dest = Path.of("testfile", "downloaded text.txt");
+            GetObjectRequest getReq = GetObjectRequest.builder()
+                    .bucket(bucket)
+                    .key(key)
+                    .build();
+            s3.getClient().getObject(getReq, dest);
+            String content = Files.readString(dest);
+            System.out.println("Download OK. First bytes: " + content.substring(0, Math.min(20, content.length())));
         } catch (Exception e) {
-            System.err.println("Error during S3 operations: " + e.getMessage());
-            e.printStackTrace();
+            System.err.println("Failure in S3 test (MinIO): " + e.getMessage());
+            System.err.println("Verify MinIO, endpoint, credentials and bucket permissions.");
         }
     }
 }
