@@ -1,9 +1,10 @@
 # Connect Library
 
-Libreria de java que permite conectarse a multiples protocolos.
-## Descripción
+A Java library that allows connection to multiple protocols.
 
-Connect Library libreria para facilitar la  conexion de multiples protocolos. Incluye implementaciones para:
+## Description
+
+Connect Library is a library to facilitate connection to multiple protocols. It includes implementations for:
 
 - **FTP** 
 - **SFTP** 
@@ -11,20 +12,20 @@ Connect Library libreria para facilitar la  conexion de multiples protocolos. In
 - **Mail**
 
 
-## Módulos
+## Modules
 
-- `eu.sgax.connect.ftp` - Conexiones FTP
-- `eu.sgax.connect.sftp` - Conexiones SFTP
-- `eu.sgax.connect.s3` - Integración con Amazon S3
-- `eu.sgax.connect.mail` - Operaciones de correo electrónico
+- `eu.sgax.connect.ftp` - FTP Connections
+- `eu.sgax.connect.sftp` - SFTP Connections
+- `eu.sgax.connect.s3` - Amazon S3 Integration
+- `eu.sgax.connect.mail` - Email Operations
 
-## Instalación
+## Installation
 
-### Agregar como dependencia Maven
+### Add as Maven Dependency
 
-Para usar esta librería en tu proyecto Maven, agrega lo siguiente a tu `pom.xml`:
+To use this library in your Maven project, add the following to your `pom.xml`:
 
-1. **Configurar el repositorio de GitHub Packages**:
+1. **Configure the GitHub Packages repository**:
 
 ```xml
 <repositories>
@@ -35,7 +36,7 @@ Para usar esta librería en tu proyecto Maven, agrega lo siguiente a tu `pom.xml
 </repositories>
 ```
 
-2. **Agregar la dependencia**:
+2. **Add the dependency**:
 
 ```xml
 <dependency>
@@ -45,21 +46,21 @@ Para usar esta librería en tu proyecto Maven, agrega lo siguiente a tu `pom.xml
 </dependency>
 ```
 
-3. **Configurar autenticación** en `~/.m2/settings.xml`:
+3. **Configure authentication** in `~/.m2/settings.xml`:
 
 ```xml
 <settings>
     <servers>
         <server>
             <id>github</id>
-            <username>TU_USUARIO_GITHUB</username>
-            <password>TU_TOKEN_GITHUB</password>
+            <username>YOUR_GITHUB_USERNAME</username>
+            <password>YOUR_GITHUB_TOKEN</password>
         </server>
     </servers>
 </settings>
 ```
 
-## Uso
+## Usage
 
 ### FTP
 
@@ -68,14 +69,14 @@ import eu.sgax.connect.ftp.FTPConnect;
 import eu.sgax.connect.ftp.FTPDownloader;
 import eu.sgax.connect.ftp.FTPUploader;
 
-// Conectar a servidor FTP
-FTPConnect ftpConnect = new FTPConnect("ftp.example.com", 21, "usuario", "password");
+// Connect to FTP server
+FTPConnect ftpConnect = new FTPConnect("ftp.example.com", 21, "user", "password");
 
-// Descargar archivo
+// Download file
 FTPDownloader downloader = new FTPDownloader(ftpConnect);
 downloader.download("/remote/path/file.txt", "/local/path/file.txt");
 
-// Subir archivo
+// Upload file
 FTPUploader uploader = new FTPUploader(ftpConnect);
 uploader.upload("/local/path/file.txt", "/remote/path/file.txt");
 ```
@@ -87,14 +88,14 @@ import eu.sgax.connect.sftp.SFTPConnect;
 import eu.sgax.connect.sftp.SFTPDownloader;
 import eu.sgax.connect.sftp.SFTPUploader;
 
-// Conectar a servidor SFTP
-SFTPConnect sftpConnect = new SFTPConnect("sftp.example.com", 22, "usuario", "password");
+// Connect to SFTP server
+SFTPConnect sftpConnect = new SFTPConnect("sftp.example.com", 22, "user", "password");
 
-// Descargar archivo
+// Download file
 SFTPDownloader downloader = new SFTPDownloader(sftpConnect);
 downloader.download("/remote/path/file.txt", "/local/path/file.txt");
 
-// Subir archivo
+// Upload file
 SFTPUploader uploader = new SFTPUploader(sftpConnect);
 uploader.upload("/local/path/file.txt", "/remote/path/file.txt");
 ```
@@ -106,16 +107,16 @@ import eu.sgax.connect.s3.S3Connect;
 import eu.sgax.connect.s3.S3Downloader;
 import eu.sgax.connect.s3.S3Uploader;
 
-// Conectar a S3
+// Connect to S3
 S3Connect s3Connect = new S3Connect("us-east-1", "access-key", "secret-key");
 
-// Descargar archivo
+// Download file
 S3Downloader downloader = new S3Downloader(s3Connect);
-downloader.download("mi-bucket", "remote-file.txt", "/local/path/file.txt");
+downloader.download("my-bucket", "remote-file.txt", "/local/path/file.txt");
 
-// Subir archivo
+// Upload file
 S3Uploader uploader = new S3Uploader(s3Connect);
-uploader.upload("mi-bucket", "/local/path/file.txt", "remote-file.txt");
+uploader.upload("my-bucket", "/local/path/file.txt", "remote-file.txt");
 ```
 
 ### Mail
@@ -124,28 +125,28 @@ uploader.upload("mi-bucket", "/local/path/file.txt", "remote-file.txt");
 import eu.sgax.connect.mail.SendMail;
 import eu.sgax.connect.mail.ReadMail;
 
-// Enviar correo
-SendMail sendMail = new SendMail("smtp.gmail.com", 587, "tu@email.com", "password");
+// Send email
+SendMail sendMail = new SendMail("smtp.gmail.com", 587, "your@email.com", "password");
 SendMail.EmailBuilder email = sendMail.new EmailBuilder()
-    .to("destinatario@email.com")
-    .subject("Asunto del correo")
-    .body("Contenido del mensaje")
-    .attachment("/path/to/archivo.pdf");
+    .to("recipient@email.com")
+    .subject("Email subject")
+    .body("Message content")
+    .attachment("/path/to/file.pdf");
 sendMail.send(email);
 
-// Leer correos
-ReadMail readMail = new ReadMail("imap.gmail.com", 993, "tu@email.com", "password");
-List<ReadMail.EmailMessage> mensajes = readMail.readEmails("INBOX", 10);
+// Read emails
+ReadMail readMail = new ReadMail("imap.gmail.com", 993, "your@email.com", "password");
+List<ReadMail.EmailMessage> messages = readMail.readEmails("INBOX", 10);
 ```
 
-## Requisitos
+## Requirements
 
-- Java 21 o superior
-- Maven 3.6 o superior
+- Java 21 or higher
+- Maven 3.6 or higher
 
-## Licencia
+## License
 
-Este proyecto está licenciado bajo la **Apache License, Version 2.0**. Consulta el archivo `LICENSE` para más detalles.
+This project is licensed under the **Apache License, Version 2.0**. See the `LICENSE` file for more details.
 
 ```
 Licensed under the Apache License, Version 2.0 (the "License");
@@ -161,32 +162,32 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ```
 
-## Dependencias
+## Dependencies
 
-Esta librería utiliza las siguientes dependencias de terceros:
+This library uses the following third-party dependencies:
 
 - **AWS SDK for Java 2.x**
-  - **Autor**: Amazon Web Services
-  - **Proyecto**: https://github.com/aws/aws-sdk-java-v2
+  - **Author**: Amazon Web Services
+  - **Project**: https://github.com/aws/aws-sdk-java-v2
 
 - **Apache Commons Net**
-  - **Autor**: Apache Software Foundation
-  - **Proyecto**: https://commons.apache.org/proper/commons-net/
+  - **Author**: Apache Software Foundation
+  - **Project**: https://commons.apache.org/proper/commons-net/
 
 - **JSch**
-  - **Autor**: JCraft, Inc. (mantenido por mwiede)
-  - **Proyecto**: https://github.com/mwiede/jsch
+  - **Author**: JCraft, Inc. (maintained by mwiede)
+  - **Project**: https://github.com/mwiede/jsch
 
 - **Jakarta Mail**
-  - **Autor**: Eclipse Foundation
-  - **Proyecto**: https://github.com/eclipse-ee4j/mail
+  - **Author**: Eclipse Foundation
+  - **Project**: https://github.com/eclipse-ee4j/mail
 
 - **SLF4J Simple**
-  - **Autor**: QOS.ch
-  - **Proyecto**: https://www.slf4j.org/
+  - **Author**: QOS.ch
+  - **Project**: https://www.slf4j.org/
 
-## Propietarios
+## Owners
 
-- **Autor Principal**: SGAX
-- **Repositorio**: https://github.com/deigo81/connect-libray
-- **Organización**: SGAX
+- **Main Author**: SGAX
+- **Repository**: https://github.com/deigo81/connect-libray
+- **Organization**: SGAX
