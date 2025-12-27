@@ -161,12 +161,32 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ```
 
-## Construcción
+## Dependencias
 
-```bash
-mvn clean install
-```
+Esta librería utiliza las siguientes dependencias de terceros:
 
-## Autor
+- **AWS SDK for Java 2.x** (v2.40.15) - Para integración con Amazon S3
+  - GroupId: `software.amazon.awssdk`
+  - ArtifactId: `s3`
 
-SGAX
+- **Apache Commons Net** (v3.11.1) - Para conexiones FTP
+  - GroupId: `commons-net`
+  - ArtifactId: `commons-net`
+
+- **JSch (mwiede fork)** (v0.2.20) - Para conexiones SFTP
+  - GroupId: `com.github.mwiede`
+  - ArtifactId: `jsch`
+
+- **Jakarta Mail** (v2.0.1) - Para operaciones de correo electrónico
+  - GroupId: `com.sun.mail`
+  - ArtifactId: `jakarta.mail`
+
+- **SLF4J Simple** (v2.0.13) - Para logging
+  - GroupId: `org.slf4j`
+  - ArtifactId: `slf4j-simple`
+
+## Propietarios
+
+- **Autor Principal**: SGAX
+- **Repositorio**: https://github.com/deigo81/connect-libray
+- **Organización**: SGAX
