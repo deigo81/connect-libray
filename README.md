@@ -5,10 +5,10 @@ Libreria de java que permite conectarse a multiples protocolos.
 
 Connect Library libreria para facilitar la  conexion de multiples protocolos. Incluye implementaciones para:
 
-- **FTP**: 
-- **SFTP**: 
-- **S3**: 
-- **Mail**:
+- **FTP** 
+- **SFTP** 
+- **S3** 
+- **Mail**
 
 
 ## Módulos
