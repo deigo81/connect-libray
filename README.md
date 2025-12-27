@@ -42,7 +42,7 @@ To use this library in your Maven project, add the following to your `pom.xml`:
 <dependency>
     <groupId>eu.sgax</groupId>
     <artifactId>connect-library</artifactId>
-    <version>1.0</version>
+    <version>1.01</version>
 </dependency>
 ```
 
